@@ -80,6 +80,6 @@ nohup geth --datadir data --networkid 666 --http --http.corsdomain="*" --http.po
 第二行表明回调函数返回的say合约对象可以使用
 
 第三行表示调用区块链上获取的数据
-
+结果图片：
  ![img](https://uploader.shimo.im/f/Df26NSshLFbm8QdL.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhY2Nlc3NfcmVzb3VyY2UiLCJleHAiOjE2MzQ4MDI2MDYsImciOiJQR0RLVlBjV1BwVENqcnZrIiwiaWF0IjoxNjM0ODAyMzA2LCJ1c2VySWQiOjY0NDc3MDA4fQ.fge_2TT_ZNzknzH9XsDaZC1qw6l08x5s9uKrbjjV6Os)
 
