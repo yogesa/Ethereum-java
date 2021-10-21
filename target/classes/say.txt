@@ -1,0 +1,14 @@
+pragma solidity ^0.4.2;
+
+contract Say {
+    string private content;
+    function set(string memory  _msg) public {
+        content=_msg;
+    }
+    function say()  public view returns(string memory ){
+        return content;
+    }
+    function Helloworld() public pure returns(string memory){
+        return "hello blockChain";
+    }
+}

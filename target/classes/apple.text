@@ -1,0 +1,108 @@
+pragma solidity ^0.7.19;
+pragma abicoder v2;
+
+contract Apple {
+
+    mapping (uint => AppleInfo ) public appleDatabase;
+
+    struct  AppleInfo {
+
+         address owner;
+         uint    appleId;
+         string  sourceArea;
+         string  pickingTime;
+         Enterprise enterprise;
+
+         uint deliverNums;
+         mapping(uint => DeliverMessage) deliverMessage;
+    }
+
+    struct Enterprise {
+        uint   telphone;
+        string enterpAddress;
+    }
+
+    struct DeliverMessage {
+        string fromRegion;
+        string toRegion;
+        string date;
+        string deliver;
+        uint   telphone;
+    }
+
+    function get() public pure returns (string str){
+        return "hello";
+    }
+
+    function insertApple_DB(
+        uint   id,
+        string mySourceArea,
+        uint   enterpriseTelphone ,
+        string enterpriseAddress,
+        string pickingTim)
+        public returns (uint appleId){
+
+        appleId = id;
+        Enterprise memory enterpris = Enterprise({telphone:enterpriseTelphone,enterpAddress:enterpriseAddress});
+        appleDatabase[appleId] =
+                    AppleInfo({
+                        owner:msg.sender,
+                        appleId:id,
+                        sourceArea:mySourceArea ,
+                        deliverNums:0 ,
+                        pickingTime:pickingTim,
+                        enterprise:enterpris
+                    });
+        return appleId;
+    }
+
+    function insertApple_DeliverMessage(
+        uint  id ,
+        string  fromR,
+        string toR,
+        string dat,
+        string del,
+        uint   telphone)
+        public {
+
+            AppleInfo storage apple = appleDatabase[id];
+            apple.deliverMessage[apple.deliverNums++] =
+                            DeliverMessage({
+                                fromRegion:fromR,
+                                toRegion:toR,
+                                date:dat,
+                                deliver:del,
+                                telphone:telphone});
+     }
+
+    function getAppleInfo(uint id) public view returns (uint    ,
+         string ,
+         string ){
+
+        AppleInfo storage apple = appleDatabase[id];
+        return (apple.appleId, apple.sourceArea, apple.pickingTime);
+    }
+
+     function getAppleDeliverMessage(uint id ) public view returns (DeliverMessage[] memory){
+
+        AppleInfo storage apple = appleDatabase[id];
+        DeliverMessage[] memory matches = new  DeliverMessage[](apple.deliverNums);
+        uint  dMessageLen = apple.deliverNums;
+        for (uint i = 0 ; i < dMessageLen ; i++) {
+             matches[i] = apple.deliverMessage[i];
+        }
+        return matches;
+    }
+    //  function getAllAppleMessage(uint id ) public view returns (string memory ){
+
+    //     AppleInfo storage apple = appleDatabase[id];
+    //     string storage result;
+    //     DeliverMessage[] memory matches = new  DeliverMessage[](apple.deliverNums);
+    //     uint  dMessageLen = apple.deliverNums;
+    //     for (uint i = 0 ; i < dMessageLen ; i++) {
+    //       result +=  matches[i].fromR + matches[i].toR;
+    //     }
+    //     return result;
+    // }
+
+}
